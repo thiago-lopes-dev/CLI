@@ -174,4 +174,4 @@ npm run test:coverage # Com relatório de cobertura
 
 ## 📄 Licença
 
-MIT © Seu Nome
+MIT © Thiago Löpes
