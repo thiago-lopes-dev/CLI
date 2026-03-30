@@ -171,7 +171,3 @@ npm run test:coverage # Com relatório de cobertura
 - [ ] Importar tarefas de arquivo Markdown
 
 ---
-
-## 📄 Licença
-
-MIT © Thiago Löpes
