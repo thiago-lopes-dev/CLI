@@ -1,10 +1,10 @@
-# 📋 Taskr — CLI de Gerenciamento de Tarefas
+# 📋 Taskr — CLI & Web Dashboard de Gerenciamento de Tarefas
 
-Ferramenta de linha de comando para gerenciar tarefas e projetos diretamente no terminal.
+Ferramenta profissional para gerenciar tarefas e projetos diretamente no terminal ou através de um dashboard web moderno.
 
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite)
-![Commander.js](https://img.shields.io/badge/CLI-Commander.js-000000)
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 ---
@@ -20,6 +20,8 @@ Ferramenta de linha de comando para gerenciar tarefas e projetos diretamente no 
 - 📊 Relatórios: hoje, semana, atrasadas, resumo geral
 - 💾 Banco SQLite local (`~/.taskr/taskr.db`)
 - 🎨 Output colorido e bem formatado no terminal
+- 🌐 **Web Dashboard** interativo (React + Vite)
+- 🚀 **API Server** integrado para acesso remoto
 
 ---
 
@@ -27,17 +29,18 @@ Ferramenta de linha de comando para gerenciar tarefas e projetos diretamente no 
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/SEU_USUARIO/taskr.git
-cd taskr
+git clone https://github.com/ruok-dev/CLI.git
+cd CLI/taskr
 
-# 2. Instale as dependências
+# 2. Instale as dependências do CLI/Server
 npm install
 
-# 3. Instale globalmente (torna o comando `taskr` disponível)
+# 3. Instale globalmente (opcional)
 npm install -g .
 
-# Ou use diretamente com:
-node src/cli.js
+# 4. Instale as dependências do Web Dashboard
+cd taskr-web
+npm install
 ```
 
 ---
@@ -80,35 +83,15 @@ taskr task rm 5 --force  # sem confirmação
 taskr task stats
 ```
 
-### Projetos
+### Dashboard & API
 
 ```bash
-# Criar projeto
-taskr project add backend
-taskr project add "Frontend App" --desc "Interface React" --color "#f59e0b"
-taskr project add -i   # modo interativo
+# Iniciar o servidor API
+npm run server
 
-# Listar projetos (com contagem de tarefas)
-taskr project list
-
-# Ver projeto e suas tarefas
-taskr project show backend
-taskr project show backend --status doing
-
-# Editar
-taskr project edit backend
-
-# Remover (tarefas ficam sem projeto)
-taskr project rm backend
-```
-
-### Relatórios
-
-```bash
-taskr report today    # Tarefas com entrega hoje
-taskr report week     # Tarefas desta semana
-taskr report overdue  # Tarefas atrasadas
-taskr report summary  # Resumo geral + progresso por projeto
+# Iniciar o dashboard web (em outra aba)
+cd taskr-web
+npm run dev
 ```
 
 ---
@@ -131,11 +114,13 @@ taskr report summary  # Resumo geral + progresso por projeto
 ```
 taskr/
 ├── src/
-│   ├── cli.js                  # Entry point
+│   ├── cli.js                  # Entry point do CLI
+│   ├── server.js               # Servidor Express API
 │   ├── commands/
 │   │   ├── task.js             # Comandos de tarefas
 │   │   ├── project.js          # Comandos de projetos
-│   │   └── report.js           # Relatórios
+│   │   ├── report.js           # Relatórios
+│   │   └── dashboard.js        # Controle do Dashboard
 │   ├── db/
 │   │   ├── database.js         # Inicialização + migrations SQLite
 │   │   ├── taskRepository.js   # CRUD de tarefas
@@ -144,8 +129,10 @@ taskr/
 │       ├── ui.js               # Output, tabelas, cores
 │       ├── date.js             # Helpers de data
 │       └── constants.js        # Constantes globais
-├── tests/
-│   └── date.test.js            # Testes unitários
+├── taskr-web/                  # Dashboard Web (React)
+├── test/                       # Testes unitários
+├── .env.example                # Exemplo de variáveis de ambiente
+├── .gitignore                  # Arquivos ignorados pelo Git
 ├── package.json
 └── README.md
 ```
@@ -169,5 +156,3 @@ npm run test:coverage # Com relatório de cobertura
 - [ ] Modo Kanban no terminal (com `blessed`)
 - [ ] Aliases customizáveis pelo usuário
 - [ ] Importar tarefas de arquivo Markdown
-
----
